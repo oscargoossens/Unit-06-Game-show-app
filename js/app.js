@@ -24,52 +24,59 @@ startGame.addEventListener('click', (e) => {
 // Split phrases into letter arrays and turn them into list items
 // if they are letters
 
-function getRandomPhraseAsArray(phrases){
-  let randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-  let characterArray = randomPhrase.split('');
-  return characterArray;
+function getRandomPhraseAsArray(x){
+  let random = x[Math.floor(Math.random() * x.length)];
+  let y = random.split('');
+  return y;
 };
 
 let characterArray = getRandomPhraseAsArray(phrases);
 
-function addPhraseToDisplay(characterArray){
-  for(let i =0; i<characterArray.length; i++){
+// Adding the phrase to the display
+
+function addPhraseToDisplay(x){
+  for(let i =0; i<x.length; i++){
     const li = document.createElement('li');
-    li.textContent = characterArray[i];
+    li.textContent = x[i];
     ul.appendChild(li);
-    if(characterArray[i].indexOf(' ') < 0){
+    if(x[i].indexOf(' ') < 0){
       li.className='letter';
     }
   }
 };
 
+let display = addPhraseToDisplay(characterArray);
+
 let userInput = qwerty.addEventListener('click', (e) => {
   return e.target;
 });
 
-
+let userButton = qwerty.addEventListener('click', (e) => {
+  return e.tagName;
+});
 
 // checkLetter function
 
 keyboardButtons.forEach(item => {item.addEventListener('click', (e) => {
   let checkLetter = (userInput) =>{
-
     let letter = document.querySelectorAll('.letter');
 
-    for ( let i=0; i<letter.length ; i++){
+    for ( let i=0; i<letter.length; i++){
 
       if(userInput.textContent === letter[i].textContent){
         letter[i].className+='show';
         let letterFound = letter[i];
         return letterFound;
-      } else{
+      } else {
         return "null";
       }
     }
   }
-  if (userInput = e.tagName='button'){
-      userInput.className = "chosen";
-      userInput.disabled;
+  if (userButton = e.tagName='button'){
+      userButton.className = "chosen";
+      userButton.disabled;
+    } else {
+      userButton.className ='space';
     }
   }
 )
