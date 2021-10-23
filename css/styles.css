@@ -13,7 +13,7 @@
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
   --font-size-medium: 20px;
-  --transition: all .2s ease-in-out;
+  --transition: all .2s ease-in-o ut;
 }
 
 /* main */
@@ -86,6 +86,14 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+}
+
+.none {
+  height: 65px;
+  width: 65px;
+  padding: 20px 1px 0 1px;
+  margin-right: 2px;
+  background:white;
 }
 
 .space {

@@ -1,10 +1,20 @@
 const qwerty = document.getElementById('qwerty');
 const keyboardButtons = document.querySelectorAll('#qwerty div button');
 const phrase = document.getElementById('phrase');
-const ul = document.querySelector('#phrase ul');
 let missed = 0;
-const overlay = document.getElementById('overlay');
-const startGame = document.querySelector('.btn__reset')
+const startGame = document.querySelector('.btn__reset');
+const ul = document.querySelector('ul');
+
+// Overlay
+// Hide overlay
+
+startGame.addEventListener('click', (e) => {
+  overlay.style.display='none';
+});
+
+// PHRASES
+// Split phrases into letter arrays and turn them into list items if they are letters
+
 let phrases = [
   "When Ires went to the butcher she ordered two hundred grams of entrecote",
   "Every football game exists out of 22 players a referee and a ball",
@@ -13,71 +23,72 @@ let phrases = [
   "The best day to start investing in ETFs or Crypto is yesterday says Warren."
 ];
 
-
-// Removing overlay after clicking 'Start Game' button
-
-startGame.addEventListener('click', (e) => {
-  overlay.style.display='none';
-})
-
-
-// Split phrases into letter arrays and turn them into list items
-// if they are letters
-
-function getRandomPhraseAsArray(x){
-  let random = x[Math.floor(Math.random() * x.length)];
+function getRandomPhraseAsArray(arr){
+  let random = arr[Math.floor(Math.random() * arr.length)];
   let y = random.split('');
   return y;
-};
+}
 
 let characterArray = getRandomPhraseAsArray(phrases);
 
 // Adding the phrase to the display
 
-function addPhraseToDisplay(x){
-  for(let i =0; i<x.length; i++){
+function addPhraseToDisplay(arr){
+  for(let i =0; i<arr.length; i++){
     const li = document.createElement('li');
-    li.textContent = x[i];
+    li.textContent = arr[i];
     ul.appendChild(li);
-    if(x[i].indexOf(' ') < 0){
+    if(arr[i] != " "){
       li.className='letter';
+    } else {
+      li.className='letter';
+      li.className='none';
     }
   }
 };
 
 let display = addPhraseToDisplay(characterArray);
 
-let userInput = qwerty.addEventListener('click', (e) => {
-  return e.target;
-});
 
-let userButton = qwerty.addEventListener('click', (e) => {
+
+// CHECKLETTER
+
+function checkLetter(x){
+  let letters = document.querySelectorAll('.letter');
+
+  for(let i=0; i<letters.length; i++){
+    if(letters[i].textContent = x.textContent){
+      letters[i].className+=" show";
+      let letterFound = letters[i];
+      return letterFound;
+    }
+  }
+  return null;
+};
+
+// Disable & Highlight chosen letters
+
+
+function userButton(){
+  qwerty.addEventListener('click', (e) => {
   return e.tagName;
-});
+})
+};
 
-// checkLetter function
+function userTarget(){
+  qwerty.addEventListener('click', (e) => {
+  return e.target;
+})
+};
 
-keyboardButtons.forEach(item => {item.addEventListener('click', (e) => {
-  let checkLetter = (userInput) =>{
-    let letter = document.querySelectorAll('.letter');
-
-    for ( let i=0; i<letter.length; i++){
-
-      if(userInput.textContent === letter[i].textContent){
-        letter[i].className+='show';
-        let letterFound = letter[i];
-        return letterFound;
-      } else {
-        return "null";
-      }
-    }
-  }
-  if (userButton = e.tagName='button'){
-      userButton.className = "chosen";
-      userButton.disabled;
+keyboardButtons.forEach(item => {
+  item.addEventListener('click', (e) => {
+    if (userButton='BUTTON'){
+        item.className = " chosen";
+        item.disabled;
     } else {
-      userButton.className ='space';
+        item.className = ' space';
     }
-  }
-)
+      checkLetter(item);
+  })
 });
