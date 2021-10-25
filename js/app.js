@@ -54,16 +54,19 @@ let display = addPhraseToDisplay(characterArray);
 // CHECKLETTER
 
 function checkLetter(x){
-  let letters = document.querySelectorAll('.letter');
+  letters = Array.from(document.querySelectorAll('.letter'));
+  let letterFound =null;
 
   for(let i=0; i<letters.length; i++){
-    if(letters[i].textContent = x.textContent){
+    if(letters[i].innerHTML == x.textContent){
       letters[i].className+=" show";
-      let letterFound = letters[i];
-      return letterFound;
+      letterFound = letters[i];
+    } else if(i = letters.length){
+      letterFound = null;
+      missed++;
     }
   }
-  return null;
+  return letterFound;
 };
 
 // Disable & Highlight chosen letters
