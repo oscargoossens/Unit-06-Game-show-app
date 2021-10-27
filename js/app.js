@@ -16,11 +16,11 @@ startGame.addEventListener('click', (e) => {
 // Split phrases into letter arrays and turn them into list items if they are letters
 
 let phrases = [
-  "When Ires went to the butcher she ordered two hundred grams of entrecote",
-  "Every football game exists out of 22 players a referee and a ball",
-  "Nature is where we can be ourselves and go to when we need to have a dose of awesome",
-  "I have got tickets to the ball, front row seats just what she likes best",
-  "The best day to start investing in ETFs or Crypto is yesterday says Warren."
+  "when Ires went to the butcher",
+  "every football game exists out of 22 players",
+  "nature is where we can be ourselves",
+  "i have got tickets to the ball",
+  "the best day to start investing"
 ];
 
 function getRandomPhraseAsArray(arr){
@@ -30,6 +30,7 @@ function getRandomPhraseAsArray(arr){
 }
 
 let characterArray = getRandomPhraseAsArray(phrases);
+let display = addPhraseToDisplay(characterArray);
 
 // Adding the phrase to the display
 
@@ -47,27 +48,40 @@ function addPhraseToDisplay(arr){
   }
 };
 
-let display = addPhraseToDisplay(characterArray);
-
+let letters = Array.from(document.querySelectorAll('.letter'));
 
 
 // CHECKLETTER
 
 function checkLetter(x){
-  letters = Array.from(document.querySelectorAll('.letter'));
   let letterFound =null;
 
   for(let i=0; i<letters.length; i++){
     if(letters[i].innerHTML == x.textContent){
       letters[i].className+=" show";
       letterFound = letters[i];
-    } else if(i = letters.length){
-      letterFound = null;
-      missed++;
     }
   }
   return letterFound;
 };
+
+// CHECKWIN
+
+function checkWin(){
+  let lettersShown = Array.from(document.querySelectorAll('.show'));
+  let h2 = document.querySelector('h2');
+  if (lettersShown.length == letters.length){
+    overlay.className = 'win';
+    overlay.style.display='flex';
+    h2.textContent= "Victorious!";
+    startGame.textContent = "Start over";
+  } else if (missed>=5){
+    overlay.className = 'lose';
+    overlay.style.display='flex';
+    h2.textContent= "Yay, that's a bummer";
+    startGame.textContent = "Try again";
+  }
+}
 
 // Disable & Highlight chosen letters
 
@@ -75,13 +89,13 @@ function checkLetter(x){
 function userButton(){
   qwerty.addEventListener('click', (e) => {
   return e.tagName;
-})
+  })
 };
 
 function userTarget(){
   qwerty.addEventListener('click', (e) => {
   return e.target;
-})
+  })
 };
 
 keyboardButtons.forEach(item => {
@@ -92,6 +106,11 @@ keyboardButtons.forEach(item => {
     } else {
         item.className = ' space';
     }
-      checkLetter(item);
-  })
-});
+    let hearts = Array.from(document.querySelectorAll('.tries img'));
+    if (checkLetter(item) == null){
+        hearts[missed].src="images/lostHeart.png";
+        missed++;
+      }
+    checkWin();
+    })
+  });
