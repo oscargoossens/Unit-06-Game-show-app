@@ -1,4 +1,3 @@
-const qwerty = document.getElementById('qwerty');
 const keyboardButtons = document.querySelectorAll('#qwerty div button');
 const phrase = document.getElementById('phrase');
 let missed = 0;
@@ -93,7 +92,7 @@ function winnerButton(){
   overlay.appendChild(btn);
   btn.addEventListener( 'click', function(){
     missed = 0;
-    getRandomPhraseAsArray(phrases);
+    characterArray = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(characterArray);
     overlay.style.display='none';
   });
@@ -112,7 +111,7 @@ function loserButton(){
   overlay.appendChild(btn);
   btn.addEventListener( 'click', function(){
     missed = 0;
-    getRandomPhraseAsArray(phrases);
+    characterArray = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(characterArray);
     overlay.style.display='none';
   });
