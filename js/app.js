@@ -3,24 +3,23 @@ const keyboardButtons = document.querySelectorAll('#qwerty div button');
 const phrase = document.getElementById('phrase');
 let missed = 0;
 const startGame = document.querySelector('.btn__reset');
+const btn = document.querySelector('.btn__reset');
 const ul = document.querySelector('ul');
 
-// Overlay
-// Hide overlay
+// Hide overlay on starting
 
 startGame.addEventListener('click', (e) => {
   overlay.style.display='none';
 });
 
-// PHRASES
 // Split phrases into letter arrays and turn them into list items if they are letters
 
 let phrases = [
-  "when Ires went to the butcher",
-  "every football game exists out of 22 players",
-  "nature is where we can be ourselves",
-  "i have got tickets to the ball",
-  "the best day to start investing"
+  "when ires went to the butcher",
+  "everytime the same story",
+  "in nature we are ourselves",
+  "i have tickets to the ball",
+  "start investing yesterday"
 ];
 
 function getRandomPhraseAsArray(arr){
@@ -65,38 +64,84 @@ function checkLetter(x){
   return letterFound;
 };
 
+
+// RESET BUTTONS
+
+function reset(){
+  while( ul.lastChild ){
+    ul.removeChild(ul.lastChild);
+  }
+  for( let i =0; i<keyboardButtons.length; i++){
+    keyboardButtons[i].className = "";
+  }
+  let hearts = Array.from(document.querySelectorAll('.tries img'));
+  for ( let i=0; i<hearts.length; i++){
+    hearts[i].src="images/liveHeart.png";
+  }
+}
+
+function winnerButton(){
+  overlay.className = 'win';
+  overlay.style.display='flex';
+  let btnReset = document.querySelector('.btn__reset');
+  btnReset.remove();
+  let h2 = document.querySelector('h2');
+  h2.textContent= "Winner, winner, chicken dinner!";
+  let btn = document.createElement("button");
+  btn.innerHTML = "Let's start over";
+  btn.className = "btn__reset btn__winner"
+  overlay.appendChild(btn);
+  btn.addEventListener( 'click', function(){
+    missed = 0;
+    getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(characterArray);
+    overlay.style.display='none';
+  });
+}
+
+function loserButton(){
+  overlay.className = 'lose';
+  overlay.style.display='flex';
+  let btnReset = document.querySelector('.btn__reset');
+  btnReset.remove();
+  let h2 = document.querySelector('h2');
+  h2.textContent= "Yay, that's a bummer";
+  let btn = document.createElement("button");
+  btn.innerHTML = "Let's start over";
+  btn.className = "btn__reset btn__loser"
+  overlay.appendChild(btn);
+  btn.addEventListener( 'click', function(){
+    missed = 0;
+    getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(characterArray);
+    overlay.style.display='none';
+  });
+}
+
+function resetLoser(){
+  reset();
+  loserButton();
+}
+
+function resetWinner(){
+  reset();
+  winnerButton();
+}
+
 // CHECKWIN
 
 function checkWin(){
   let lettersShown = Array.from(document.querySelectorAll('.show'));
-  let h2 = document.querySelector('h2');
   if (lettersShown.length == letters.length){
-    overlay.className = 'win';
-    overlay.style.display='flex';
-    h2.textContent= "Victorious!";
-    startGame.textContent = "Start over";
-  } else if (missed>=5){
-    overlay.className = 'lose';
-    overlay.style.display='flex';
-    h2.textContent= "Yay, that's a bummer";
-    startGame.textContent = "Try again";
+    resetWinner();
+  } else if (missed>=2){
+    resetLoser();
   }
 }
 
-// Disable & Highlight chosen letters
-
-
-function userButton(){
-  qwerty.addEventListener('click', (e) => {
-  return e.tagName;
-  })
-};
-
-function userTarget(){
-  qwerty.addEventListener('click', (e) => {
-  return e.target;
-  })
-};
+// Keyboard button eventlisteners
+// Changing button state after chosen
+// Counts lifes
 
 keyboardButtons.forEach(item => {
   item.addEventListener('click', (e) => {

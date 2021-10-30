@@ -4,7 +4,7 @@
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
+  --color-win: #76CE82;
   --color-lose: #D94545;
   --color-start: #5b85b7;
   --color-neutral: #445069;
@@ -20,6 +20,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: 'Ubuntu';
 }
 
 body {
@@ -37,7 +38,7 @@ li, ol, ul {
 h2 {
   margin: 0;
   text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: var(--font-size-large);
   margin: 0;
 }
@@ -83,6 +84,7 @@ button {
   width: 65px;
   padding: 20px 1px 0 1px;
   margin-right: 2px;
+  margin-top: 8px;
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
@@ -103,6 +105,7 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition: background .5s, color .5s;
 }
 
 /* Keyboard */
@@ -120,12 +123,23 @@ button {
 }
 
 .btn__reset {
-  padding: 8px;
+  padding: 12px 24px;
   margin: 50px auto;
-  background: #FFFFFF;
+  background: #24548f;
   border-radius: 5px;
-  font-size: var(--font-size-medium);
+  font-size:  var(--font-size-medium);
+  font-weight: 500;
   cursor: pointer;
+}
+
+.btn__winner{
+  background-color: #44a152;
+  color: white !important;
+}
+
+.btn__loser{
+  background-color: #9f2424;
+  color: white !important;
 }
 
 /* Overlay */
@@ -151,22 +165,14 @@ button {
   background-color: var(--color-start);
 }
 
-.start a {
-  color: var(--color-win);
+.start a, .win a, .lose a {
+  color: white;
 }
 
 .win {
   background-color: var(--color-win);
 }
 
-.win a {
-  color: var(--color-win);
-}
-
 .lose {
   background-color: var(--color-lose);
-}
-
-.lose a {
-  color: var(--color-lose);
 }
