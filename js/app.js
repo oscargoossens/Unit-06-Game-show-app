@@ -1,3 +1,4 @@
+const qwerty = document.getElementById('qwerty');
 const keyboardButtons = document.querySelectorAll('#qwerty div button');
 const phrase = document.getElementById('phrase');
 let missed = 0;
@@ -53,6 +54,7 @@ let letters = Array.from(document.querySelectorAll('.letter'));
 
 function checkLetter(x){
   let letterFound =null;
+  let letters = Array.from(document.querySelectorAll('.letter'));
 
   for(let i=0; i<letters.length; i++){
     if(letters[i].innerHTML == x.textContent){
@@ -133,7 +135,7 @@ function checkWin(){
   let lettersShown = Array.from(document.querySelectorAll('.show'));
   if (lettersShown.length == letters.length){
     resetWinner();
-  } else if (missed>=2){
+  } else if (missed>=5){
     resetLoser();
   }
 }
