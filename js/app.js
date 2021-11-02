@@ -42,7 +42,7 @@ function addPhraseToDisplay(arr){
       li.className='letter';
     } else {
       li.className='letter';
-      li.className='none';
+      li.className='space';
     }
   }
 };
@@ -144,11 +144,10 @@ function checkWin(){
 // Changing button state after chosen
 // Counts lifes
 
-keyboardButtons.forEach(item => {
-  item.addEventListener('click', (e) => {
-    if (userButton='BUTTON'){
+keyboardButtons.addEventListener('click', (e) => {
+    if ( e.target.tagName === "BUTTON" ){
         item.className = " chosen";
-        item.disabled;
+        item.disabled = true;
     } else {
         item.className = ' space';
     }
@@ -158,5 +157,4 @@ keyboardButtons.forEach(item => {
         missed++;
       }
     checkWin();
-    })
   });

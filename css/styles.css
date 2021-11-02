@@ -90,14 +90,6 @@ button {
   border-radius: 5px;
 }
 
-.none {
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
-  margin-right: 2px;
-  background:white;
-}
-
 .space {
   width: 15px;
 }
