@@ -137,7 +137,7 @@ function checkWin(){
   let lettersShown = Array.from(document.querySelectorAll('.show'));
   if (lettersShown.length == letters.length){
     resetWinner();
-  } else if (missed>=1){
+  } else if (missed>=5){
     resetLoser();
   }
 }
