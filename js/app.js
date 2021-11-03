@@ -74,7 +74,9 @@ function reset(){
   }
   for( let i =0; i<keyboardButtons.length; i++){
     keyboardButtons[i].className = "";
+    keyboardButtons[i].disabled = false;
   }
+  console.log('reset');
   let hearts = Array.from(document.querySelectorAll('.tries img'));
   for ( let i=0; i<hearts.length; i++){
     hearts[i].src="images/liveHeart.png";
@@ -135,7 +137,7 @@ function checkWin(){
   let lettersShown = Array.from(document.querySelectorAll('.show'));
   if (lettersShown.length == letters.length){
     resetWinner();
-  } else if (missed>=5){
+  } else if (missed>=1){
     resetLoser();
   }
 }
@@ -144,15 +146,14 @@ function checkWin(){
 // Changing button state after chosen
 // Counts lifes
 
-keyboardButtons.addEventListener('click', (e) => {
+qwerty.addEventListener('click', (e) => {
+  let item = e.target;
     if ( e.target.tagName === "BUTTON" ){
         item.className = " chosen";
         item.disabled = true;
-    } else {
-        item.className = ' space';
     }
     let hearts = Array.from(document.querySelectorAll('.tries img'));
-    if (checkLetter(item) == null){
+    if (checkLetter(item) == null && e.target.tagName === "BUTTON"){
         hearts[missed].src="images/lostHeart.png";
         missed++;
       }
